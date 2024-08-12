@@ -1,0 +1,14 @@
+{
+  "name": "biamp-client-demo",
+  "version": "1.0.0",
+  "description": "a demo for biamp client",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "guhui@shgbit.com",
+  "license": "ISC",
+  "dependencies": {
+    "@shgbit/biamp-client": "^1.0.2"
+  }
+}
