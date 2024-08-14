@@ -9,6 +9,6 @@
   "author": "guhui@shgbit.com",
   "license": "ISC",
   "dependencies": {
-    "@shgbit/biamp-client": "^1.0.2"
+    "@shgbit/biamp-client": "file:../biamp-client"
   }
 }
