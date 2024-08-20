@@ -1,13 +1,11 @@
 const BiampClient = require('@shgbit/biamp-client');
 
-const { DeviceBlock,MatrixMixerBlock } = BiampClient;
-
-
+const { DeviceBlock,MatrixMixerBlock,CommonBlock,BiampBlock} = BiampClient;
 
 
 const main = async () => {
 	console.log("---main begin---");
-    const client = new BiampClient('172.16.31.52','main');
+    const client = new BiampClient('10.20.10.200','main');
     console.log("<<<<<<< begin connect biamp >>>>>>>");
     let connect = await client.makeConnect();
     console.log(`<<<<<<< end connect biamp,result:${connect} >>>>>>>`);
@@ -24,6 +22,11 @@ const main = async () => {
         console.log(`MatrixMixer is input:${inputNum} ✖️ output:${outputNum}`);
         await normalQueryCrosspointLevelState( client,mixer,inputNum,outputNum );
         await batchQueryCrosspointLevelState(client,mixer,inputNum,outputNum );
+        const common = new CommonBlock();
+        let mute = await client.sendTTPSimple( common.buildCommand('Mixer1',BiampBlock.get,'inputMute',BiampBlock.boolean,1) );
+        let label = await client.sendTTPSimple( common.buildCommand('Mixer1',BiampBlock.get,'inputLabel',BiampBlock.string,1) );
+        console.log(`MatrixMixer mute:${mute}  label:${label}`);
+    
     }
     console.log(`end for main`);
 };
@@ -31,7 +34,7 @@ const main = async () => {
 /**
  * 
  * @param {BiampClient} client 
- * @param {MatrixMixerBlock} mixer 
+ * @param {BiampClient.MatrixMixerBlock} mixer 
  * @param {number} inputNum 
  * @param {number} outputNum 
  */
@@ -52,7 +55,7 @@ async function normalQueryCrosspointLevelState(client,mixer,inputNum,outputNum){
 /**
  * 
  * @param {BiampClient} client 
- * @param {MatrixMixerBlock} mixer 
+ * @param {BiampClient.MatrixMixerBlock} mixer 
  * @param {number} inputNum 
  * @param {number} outputNum 
  */
